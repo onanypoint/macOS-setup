@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+###############################################################################
+# Tmux                                                                        #
+###############################################################################
+
+# Install Tmux Plugin Manager
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
+

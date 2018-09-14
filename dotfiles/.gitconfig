@@ -1,0 +1,73 @@
+[user]
+	name = onanypoint
+	email = onanypoint@gmail.com
+
+[core]
+	editor = vim
+	whitespace = fix, -indent-with-non-tab, trailing-space, cr-at-eol
+	excludesfile = ~/.gitignore.base
+
+[filter "lfs"]
+	clean = git-lfs clean %f
+	smudge = git-lfs smudge %f
+	required = true
+
+[alias]
+    # http://blog.apiaxle.com/post/handy-git-tips-to-stop-you-getting-fired/
+    # http://caiustheory.com/git-git-git-git-git/
+
+    git = !exec git
+    ############
+    a = add --all
+    #############
+    s  = status
+    ss = status -no
+    #############
+    b = branch
+    ba = branch -a
+    bd = branch -d
+    bdd = branch -D
+    #############
+    c = commit
+    ca = commit -a
+    cm = commit -m
+    cem = commit --allow-empty -m
+    cam = commit -am
+    # cd = commit --amend
+    #############
+    d = diff
+    #############
+    co = checkout
+    cob = checkout -b
+    #############
+    ps = push
+    psf = push -f
+    psu = push -u
+    pso = push origin
+    # psao = push --all origin
+    # psfo = push -f origin
+    # psuo = push -u origin
+    # psom = push origin master
+    # psfom = push -f origin master
+    # psuom = push -u origin master
+    #############
+    pl = pull
+    plo = pull origin
+    # plp = pull upstream
+    # plom = pull origin master
+    # plpm = pull upstream master
+    #############
+    r = reset
+    rh = reset HEAD
+    reh = reset --hard
+    # rem = reset --mixed
+    # res = reset --soft
+    rehh = reset --hard HEAD
+    # remh = reset --mixed HEAD
+    # resh = reset --soft HEAD
+
+[status]
+	submoduleSummary = true
+
+[diff]
+	submodule = log
