@@ -8,3 +8,10 @@
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 
+###############################################################################
+# Chrome                                                                      #
+###############################################################################
+
+# Avoid automatic chrome sync login
+defaults write com.google.Chrome SyncDisabled -bool true
+defaults write com.google.Chrome RestrictSigninToPattern -string ".*@example.com"

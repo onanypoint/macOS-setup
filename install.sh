@@ -23,8 +23,25 @@ mackup restore
 source macos.setup
 source macos.prefs
 
+# Paremeters
+while getopts "n:" opt; do
+case "${opt}" in
+	n) COMPUTER_NAME=${OPTARG};;
+esac
+done
+
+# Set computer name
+# https://ilostmynotes.blogspot.com/2012/03/computername-vs-localhostname-vs.html
+if [[ -z "${COMPUTER_NAME}" ]] ; then
+	scutil --set ComputerName "${COMPUTER_NAME}"
+	scutil --set HostName "${COMPUTER_NAME}"
+	scutil --set LocalHostName "${COMPUTER_NAME}"
+	echo "Computer name set to ${COMPUTER_NAME}"
+else
+	echo "Computer name not set"
+fi
+
 # macOS security 101
 # Definitely check out in more details the README
-# and https://github.com/drduh/macOS-Security-and-Privacy-Guide
-
-
+# https://github.com/drduh/macOS-Security-and-Privacy-Guide
+# https://blog.bejarano.io/hardening-macos.html
