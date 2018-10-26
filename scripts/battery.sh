@@ -35,7 +35,7 @@ file=$dir$file
 if [ ! -e "$file" ] ; then
 	echo "Creating $file"
 	mkdir -p $dir
-    touch $file    
+	touch $file    
 fi
 
 date >> "$file"
