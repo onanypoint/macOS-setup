@@ -10,39 +10,32 @@ sudo -v
 # Keep-alive: update existing `sudo` time stamp until `.macos` has finished
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
-###############################################################################
-# General                                                                     #
-###############################################################################
+# ###############################################################################
+# # General                                                                     #
+# ###############################################################################
 
-# TODO
 # Disable Bonjour
-# defaults write /Library/Preferences/com.apple.mDNSResponder.plist NoMulticastAdvertisements -bool YES
-
-# TODO
-# Disable Bluetooth
-#defaults write /Library/Preferences/com.apple.Bluetooth ControllerPowerState -int 0
-#killall -HUP blued
+launchctl unload -w /System/Library/LaunchDaemons/com.apple.mDNSResponder.plist
+launchctl unload -w /System/Library/LaunchDaemons/com.apple.mDNSResponderHelper.plist
 
 # Disable AirDrop
 defaults write com.apple.NetworkBrowser DisableAirDrop -bool YES
 
 # Disable Remote Apple Events
-systemsetup -setremoteappleevents off
+sudo systemsetup -setremoteappleevents off
 
-# TODO
 # Disable Screen Sharing
-# launchctl unload -w /System/Library/LaunchDaemons/com.apple.screensharing.plist
+launchctl unload -w /System/Library/LaunchDaemons/com.apple.screensharing.plist
 
 # Disable Printer Sharing
 cupsctl --no-share-printers
 
 # Disable Wake on Network Access
-systemsetup -setwakeonnetwork  access off
+sudo systemsetup -setwakeonnetworkaccess off
 
-# TODO
 # Disable File Sharing
-# launchctl unload -w /System/Library/LaunchDaemons/com.apple.AppleFileServer.plist 
-# launchctl unload -w /System/Library/LaunchDaemons/com.apple.smbd.plist
+launchctl unload -w /System/Library/LaunchDaemons/com.apple.AppleFileServer.plist 
+launchctl unload -w /System/Library/LaunchDaemons/com.apple.smbd.plist
 
 # Disable iCloud drive
 defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
@@ -51,31 +44,21 @@ defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
 
-# TODO
 # Disable Guest user 
-# defaults write /Library/Preferences/com.apple.AppleFileServer guestAccess -bool NO
-# defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server AllowGuestAccess -bool NO
-
-# Always boot in verbose mode (not MacOS GUI mode)"
-sudo nvram boot-args="-v";
+sudo defaults write /Library/Preferences/com.apple.AppleFileServer guestAccess -bool NO
+sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server AllowGuestAccess -bool NO
 
 # Disable disk image verification"
 defaults write com.apple.frameworks.diskimages skip-verify -bool true
 defaults write com.apple.frameworks.diskimages skip-verify-locked -bool true
 defaults write com.apple.frameworks.diskimages skip-verify-remote -bool true
 
+# Disable font smoothing
+defaults write -g CGFontRenderingFontSmoothingDisabled -bool NO
 
 ###############################################################################
 # General UI/UX                                                               #
 ###############################################################################
-
-# TODO
-# Disable the sound effects on boot
-# nvram SystemAudioVolume=" "
-
-# TODO
-# Always boot in verbose mode (not MacOS GUI mode)"
-# nvram boot-args="-v"
 
 # Expand Save Panel by Default
 defaults write -g NSNavPanelExpandedStateForSaveMode -bool true
@@ -88,15 +71,14 @@ defaults write NSGlobalDomain PMPrintingExpandedStateForPrint2 -bool true
 # Automatically quit printer app once the print jobs complete
 defaults write com.apple.print.PrintingPrefs "Quit When Finished" -bool true
 
-# TODO
 # Disable Captive Portal
-# defaults write /Library/Preferences/SystemConfiguration/com.apple.captive.control Active -bool false
+sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.captive.control Active -boolean false
 
 # Save to Disk by Default
 defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
 
-# Require an administrator password to access system-wide preferences"
-security authorizationdb read system.preferences > /tmp/system.preferences.plist &&/usr/libexec/PlistBuddy -c "Set :shared false" /tmp/system.preferences.plist && security authorizationdb write system.preferences < /tmp/system.preferences.plist
+# # Require an administrator password to access system-wide preferences"
+# security authorizationdb read system.preferences > /tmp/system.preferences.plist &&/usr/libexec/PlistBuddy -c "Set :shared false" /tmp/system.preferences.plist && security authorizationdb write system.preferences < /tmp/system.preferences.plist
 
 # Disable the “Are you sure you want to open this application?” dialog"
 defaults write com.apple.LaunchServices LSQuarantine -bool false
@@ -151,7 +133,7 @@ defaults write -g NSAutomaticSpellingCorrectionEnabled -bool false
 ###############################################################################
 
 # Set wallpaper
-osascript -e 'tell application "Finder" to set desktop picture to POSIX file "/Library/Desktop Pictures/Solid Colors/Solid Gray Dark.png"'
+osascript -e 'tell application "Finder" to set desktop picture to POSIX file "/Library/Desktop Pictures/Solid Colors/Stone.png"'
 
 # Finder: Set Desktop as the default location for new windows'
 defaults write com.apple.finder NewWindowTarget -string "PfDe" 
@@ -253,9 +235,9 @@ defaults write com.apple.dock showLaunchpadGestureEnabled -int 0
 # Group windows by application in Mission Control
 defaults write com.apple.dock expose-group-by-app -bool true
 
-###############################################################################
-# Screen                                                                      #
-###############################################################################
+# ###############################################################################
+# # Screen                                                                      #
+# ###############################################################################
 
 # Require password immediately after sleep or screen saver begins
 defaults write com.apple.screensaver askForPassword -int 1
@@ -284,9 +266,9 @@ defaults write com.apple.dock wvous-tr-modifier -int 0
 defaults write com.apple.dock wvous-br-corner -int 10 
 defaults write com.apple.dock wvous-br-modifier -int 0
 
-###############################################################################
-# Dock                                                                        #
-###############################################################################
+# ###############################################################################
+# # Dock                                                                        #
+# ###############################################################################
 
 # Automatically hide and show the Dock
 defaults write com.apple.dock autohide -bool true
@@ -297,6 +279,9 @@ defaults write com.apple.dock tilesize -float 16
 
 # Make Dock icons of hidden Applications translucent
 defaults write com.apple.dock showhidden -bool true
+
+# Don't show recent applications
+defaults write com.apple.dock show-recents -bool false
 
 # Wipe all (default) app icons from the Dock
 defaults write com.apple.dock persistent-apps -array
@@ -332,24 +317,12 @@ done
 # MenuBar                                                                     #
 ###############################################################################
 
-# Disable the menubar transparency
-defaults write com.apple.universalaccess reduceTransparency -bool true
+# # Disable the menubar transparency
+sudo defaults write com.apple.universalaccess reduceTransparency -bool true
 
 # Show percentage in battery Status
 defaults write com.apple.menuextra.battery ShowPercent -string "YES"
 defaults write com.apple.menuextra.battery ShowTime -string "NO"
-
-# Hide the Time Machine, Volume, and User icons
-defaults write ~/Library/Preferences/ByHost/com.apple.systemuiserver.* dontAutoLoad -array \
-	"/System/Library/CoreServices/Menu Extras/TimeMachine.menu" \
-	"/System/Library/CoreServices/Menu Extras/Volume.menu" \
-	"/System/Library/CoreServices/Menu Extras/User.menu"; \
-
-# Show the Airport, Battery and Clock icons
-defaults write com.apple.systemuiserver menuExtras -array \
-    "/System/Library/CoreServices/Menu Extras/AirPort.menu" \
-    "/System/Library/CoreServices/Menu Extras/Battery.menu" \
-    "/System/Library/CoreServices/Menu Extras/Clock.menu"
 
 ###############################################################################
 # Dock, Dashboard, and hot corners                                            #
@@ -486,7 +459,7 @@ defaults write com.apple.terminal StringEncodings -array 4
 defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
 
 # Disable local Time Machine backups
-hash tmutil &> /dev/null && sudo tmutil disablelocal
+# hash tmutil &> /dev/null && sudo tmutil disablelocal
 
 ###############################################################################
 # Activity Monitor                                                            #
