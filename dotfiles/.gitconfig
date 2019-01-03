@@ -3,7 +3,7 @@
 	email = onanypoint@gmail.com
 
 [core]
-	editor = nano
+	editor = less
 	whitespace = fix, -indent-with-non-tab, trailing-space, cr-at-eol
 	excludesfile = ~/.gitignore.base
 

@@ -62,16 +62,16 @@ ff () { /usr/bin/find . -name "$@" ; }          # ff:       Find file under the 
 ffs () { /usr/bin/find . -name "$@"'*' ; }      # ffs:      Find file whose name starts with a given string
 ffe () { /usr/bin/find . -name '*'"$@" ; }      # ffe:      Find file whose name ends with a given string
 
-#  	---------------------------------------
+#   ---------------------------------------
 #  	4.  SYSTEMS OPERATIONS & INFORMATION
-#  	---------------------------------------
+#   ---------------------------------------
 
 #   4.0 EXTRA COMMANDS
 #   ---------------------------------------
 
 alias ts='tmux start-server; echo starting tmux server'
 
-#  	4.1  OSX SPECIFICS
+#  	4.1 SPECIFICS
 #  	---------------------------------------
 
 if [ "$(uname)"=="Darwin" ]; then
@@ -89,6 +89,11 @@ if [ "$(uname)"=="Darwin" ]; then
 
     alias spoofmac='sudo ifconfig en0 ether $(openssl rand -hex 6 | sed "s%\(..\)%\1:%g; s%.$%%")'
 
+    alias nvramsetup="bash ~/.config.git/macos.nvram"
+
 elif [ "$(expr substr $(uname -s) 1 5)"=="Linux" ]; then
     # Do something under GNU/Linux platform
 fi
+
+# added by travis gem
+[ -f /Users/onanypoint/.travis/travis.sh ] && source /Users/onanypoint/.travis/travis.sh
