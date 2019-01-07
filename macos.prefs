@@ -1,6 +1,13 @@
 #!/usr/bin/env bash
 
 ###############################################################################
+# Zprezto                                                                     #
+###############################################################################
+
+git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
+
+
+###############################################################################
 # Tmux                                                                        #
 ###############################################################################
 
@@ -15,3 +22,13 @@ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 # Avoid automatic chrome sync login
 defaults write com.google.Chrome SyncDisabled -bool true
 defaults write com.google.Chrome RestrictSigninToPattern -string ".*@example.com"
+
+
+###############################################################################
+# Sublime Text 3                                                              #
+###############################################################################
+
+# Install Theme
+cd ~/Library/Application\ Support/Sublime\ Text\ 3/Packages
+git clone git://github.com/chriskempson/base16-textmate.git Base16
+
