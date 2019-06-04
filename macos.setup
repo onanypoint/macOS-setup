@@ -59,6 +59,13 @@ defaults write com.apple.frameworks.diskimages skip-verify-remote -bool true
 # Disable font smoothing
 defaults write -g CGFontRenderingFontSmoothingDisabled -bool NO
 
+# Deactivate Shortcuts
+
+# Save picture of the Touch Bar as a file
+/usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.symbolichotkeys.plist -c "Set AppleSymbolicHotKeys:181:enabled false" 
+# Copy picture of the Touch Bar to the clipboard
+/usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.symbolichotkeys.plist -c "Set AppleSymbolicHotKeys:182:enabled false" 
+ 
 ###############################################################################
 # General UI/UX                                                               #
 ###############################################################################
