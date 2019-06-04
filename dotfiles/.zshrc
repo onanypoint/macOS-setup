@@ -70,6 +70,7 @@ ffe () { /usr/bin/find . -name '*'"$@" ; }      # ffe:      Find file whose name
 #   ---------------------------------------
 
 alias ts='tmux start-server; echo starting tmux server'
+alias docker-rmi-all='docker rmi $(docker ps -q)'
 
 #  	4.1 SPECIFICS
 #  	---------------------------------------
