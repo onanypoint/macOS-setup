@@ -1,25 +1,36 @@
 [user]
-	name = onanypoint
-	email = onanypoint@gmail.com
+    name = onanypoint
+    email = onanypoint@gmail.com
 
 [core]
-	editor = nano
-	whitespace = fix, -indent-with-non-tab, trailing-space, cr-at-eol
-	excludesfile = ~/.gitignore.base
+    editor = nano
+    whitespace = fix, -indent-with-non-tab, trailing-space, cr-at-eol
+    excludesfile = ~/.gitignore.base
 
 [filter "lfs"]
-	clean = git-lfs clean %f
-	smudge = git-lfs smudge %f
-	required = true
+    clean = git-lfs clean %f
+    smudge = git-lfs smudge %f
+    required = true
 
 [alias]
 	# http://blog.apiaxle.com/post/handy-git-tips-to-stop-you-getting-fired/
-    	# http://caiustheory.com/git-git-git-git-git/
+	# http://caiustheory.com/git-git-git-git-git/
 
-    	git = !exec git
+    git = !exec git
 
 [status]
-	submoduleSummary = true
+    submoduleSummary = true
 
 [diff]
-	submodule = log
+    submodule = log
+
+[filter "nbstrip_full"]
+    clean = "jq --indent 1 'if ((.metadata | has(\"git\") | not) or (.metadata.git | has(\"clear_output\") | not)) or .metadata.git.clear_output then \
+            (.cells[] | select(has(\"outputs\")) | .outputs) = [] \
+            | (.cells[] | select(has(\"execution_count\")) | .execution_count) = null \
+            | .cells[].metadata = {} \
+            | del(.cells[] | select(.source == [])) \
+            | .metadata = {\"language_info\": {\"name\": \"python\", \"pygments_lexer\": \"ipython3\"}} \
+            else . end'"
+    smudge = cat
+    required = true
