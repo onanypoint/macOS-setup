@@ -92,8 +92,6 @@ if [ "$(uname)"=="Darwin" ]; then
 
     alias nvramsetup="bash ~/.config.git/macos.nvram"
 
-    . /usr/local/miniconda3/etc/profile.d/conda.sh
-
 elif [ "$(expr substr $(uname -s) 1 5)"=="Linux" ]; then
     # Do something under GNU/Linux platform
 fi
