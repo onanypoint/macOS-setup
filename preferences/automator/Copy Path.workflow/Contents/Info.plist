@@ -12,7 +12,7 @@
 			<key>NSMenuItem</key>
 			<dict>
 				<key>default</key>
-				<string>Copy to Path</string>
+				<string>Copy Path</string>
 			</dict>
 			<key>NSMessage</key>
 			<string>runWorkflowAsService</string>
