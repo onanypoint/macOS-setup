@@ -77,8 +77,6 @@
 				</array>
 				<key>arguments</key>
 				<dict/>
-				<key>conversionLabel</key>
-				<integer>0</integer>
 			</dict>
 		</dict>
 		<dict>
@@ -130,7 +128,7 @@
 				<key>ActionParameters</key>
 				<dict>
 					<key>COMMAND_STRING</key>
-					<string>/usr/local/bin/subl $@</string>
+					<string>/usr/local/bin/code $@</string>
 					<key>CheckedForUserDefaultShell</key>
 					<true/>
 					<key>inputMethod</key>
@@ -243,7 +241,7 @@
 				<key>isViewVisible</key>
 				<true/>
 				<key>location</key>
-				<string>309.000000:550.000000</string>
+				<string>309.000000:370.000000</string>
 				<key>nibPath</key>
 				<string>/System/Library/Automator/Run Shell Script.action/Contents/Resources/Base.lproj/main.nib</string>
 			</dict>
@@ -253,7 +251,7 @@
 	</array>
 	<key>connectors</key>
 	<dict>
-		<key>4C4A9B31-DD20-472D-9132-A5C83480D417</key>
+		<key>78D3C32D-2B24-4C2D-90A3-748ECBEFB71C</key>
 		<dict>
 			<key>from</key>
 			<string>0BB6337C-0766-40A4-8994-737C39CF019A - 0BB6337C-0766-40A4-8994-737C39CF019A</string>
