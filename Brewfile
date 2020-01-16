@@ -1,11 +1,11 @@
 ###############################
 # Taps                        #
 ###############################
-tap 'homebrew/bundle'
-tap 'caskroom/cask'
-tap 'caskroom/versions'
 tap 'beeftornado/rmtree'
 tap 'buo/cask-upgrade'
+tap 'caskroom/cask'
+tap 'caskroom/versions'
+tap 'homebrew/bundle'
 
 ###############################
 # Binaries                    #
@@ -34,12 +34,12 @@ brew 'zsh'
 # Development                 #
 ###############################
 cask 'miniconda'
-cask 'pycharm-ce'
-cask 'intellij-idea-ce'
 cask 'java8'
 brew 'sbt'
 brew 'scala'
 brew 'apache-spark'
+cask 'visual-studio-code'
+cask 'sublime-text'
 
 ###############################
 # App Base                    #
@@ -58,8 +58,8 @@ cask 'little-snitch'
 cask 'macdown'
 cask 'skype'
 cask 'spectacle'
-cask 'sublime-text'
 cask 'telegram'
+cask 'thunderbird'
 cask 'virtualbox'
 cask 'virtualbox-extension-pack'
 cask 'vlc'
@@ -67,10 +67,7 @@ cask 'vlc'
 ###############################
 # App Specific                #
 ###############################
-# cask '1password'
-# cask 'adobe-creative-cloud'
-# cask 'docker'
-# cask 'mactex'
-# cask 'torbrowser'
-# cask 'transmission'
-# cask 'tunnelblick'
+cask 'docker'
+cask 'mactex'
+cask 'torbrowser'
+cask 'tunnelblick'
