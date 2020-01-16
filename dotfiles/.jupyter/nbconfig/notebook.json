@@ -10,8 +10,17 @@
         "0,0"
       ],
       "bind": {
-        "0,0": "jupyter-notebook:restart-kernel-and-clear-output"
+        "0,0": "jupyter-notebook:confirm-restart-kernel-and-run-all-cells",
+        "u": "jupyter-notebook:undo-cell-deletion"
       }
     }
+  },
+  "load_extensions": {
+    "nbextensions_configurator/config_menu/main": true,
+    "code_prettify/isort": false,
+    "codefolding/main": true,
+    "toggle_all_line_numbers/main": false,
+    "code_font_size/code_font_size": false,
+    "freeze/main": true
   }
 }
