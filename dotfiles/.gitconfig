@@ -1,6 +1,5 @@
-[user]
-    name = onanypoint
-    email = onanypoint@gmail.com
+[include]
+    path = ~/.gitconfig-user
 
 [core]
     editor = nano
@@ -8,15 +7,22 @@
     excludesfile = ~/.gitignore.base
 
 [filter "lfs"]
-    clean = git-lfs clean %f
-    smudge = git-lfs smudge %f
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
     required = true
+    process = git-lfs filter-process
 
 [alias]
-	# http://blog.apiaxle.com/post/handy-git-tips-to-stop-you-getting-fired/
-	# http://caiustheory.com/git-git-git-git-git/
+    # http://blog.apiaxle.com/post/handy-git-tips-to-stop-you-getting-fired/
+    # http://caiustheory.com/git-git-git-git-git/
+
+    cherryb = !python ~/.config.git/scripts/mr-from-commits.py
 
     git = !exec git
+
+    co = checkout
+    st = status
+    df = diff
 
 [status]
     submoduleSummary = true
