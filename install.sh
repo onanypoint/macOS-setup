@@ -37,9 +37,13 @@ brew bundle
 
 echo "Updating preferences using Mackup"
 # Restore dotfiles
-ln -s $(pwd)/dotfiles/.mackup ~/.mackup
-ln -s $(pwd)/dotfiles/.mackup.cfg ~/.mackup.cfg
-mackup restore
+if [[ -f "~/.mackup" ]]; then
+  echo "Mackup file already exists, aborting"
+else
+  ln -s $(pwd)/dotfiles/.mackup ~/.mackup
+  ln -s $(pwd)/dotfiles/.mackup.cfg ~/.mackup.cfg
+  mackup restore
+fi
 
 echo "Setting preferences"
 
