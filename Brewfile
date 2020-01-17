@@ -10,10 +10,12 @@ tap 'homebrew/bundle'
 ###############################
 # Binaries                    #
 ###############################
+brew 'bat'
 brew 'cmake'
 brew 'curl', args: ["with-openssl"], link: true, force: true
 brew 'git'
 brew 'htop'
+brew 'jq'
 brew 'mackup'
 brew 'nmap'
 brew 'openssh'
@@ -29,6 +31,7 @@ brew 'vim'
 brew 'wget'
 brew 'youtube-dl'
 brew 'zsh'
+
 
 ###############################
 # Development                 #
