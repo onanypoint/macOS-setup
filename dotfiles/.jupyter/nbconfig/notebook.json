@@ -21,6 +21,7 @@
     "codefolding/main": true,
     "toggle_all_line_numbers/main": false,
     "code_font_size/code_font_size": false,
-    "freeze/main": true
+    "freeze/main": true,
+    "jupyter-js-widgets/extension": true
   }
 }

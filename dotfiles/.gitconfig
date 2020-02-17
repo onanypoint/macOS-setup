@@ -15,6 +15,8 @@
 [alias]
     # http://blog.apiaxle.com/post/handy-git-tips-to-stop-you-getting-fired/
     # http://caiustheory.com/git-git-git-git-git/
+    # https://densitylabs.io/blog/5-useful-tricks-you-didn't-know-for-git
+    # https://git-scm.com/docs/pretty-formats
 
     cherryb = !python ~/.config.git/scripts/mr-from-commits.py
 
@@ -23,6 +25,11 @@
     co = checkout
     st = status
     df = diff
+
+    l = log --abbrev-commit --decorate --format=format:'%C(auto)%h - %as (%ar)%d%n%C(reset)''          %s%C(dim white) - %an%C(reset)%n'
+    st = "status --short --branch"
+
+    stash-pop-force = !git stash show -p | git apply && git stash drop
 
 [status]
     submoduleSummary = true

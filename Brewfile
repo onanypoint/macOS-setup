@@ -32,7 +32,6 @@ brew 'wget'
 brew 'youtube-dl'
 brew 'zsh'
 
-
 ###############################
 # Development                 #
 ###############################
@@ -51,26 +50,24 @@ cask 'alfred'
 cask 'appcleaner'
 cask 'chromium'
 cask 'clipy'
+cask 'docker'
 cask 'dropbox'
 cask 'easyfind'
 cask 'firefox'
 cask 'google-chrome'
 cask 'istat-menus5'
 cask 'iterm2'
+cask 'libreoffice'
 cask 'little-snitch'
 cask 'macdown'
+cask 'mactex'
 cask 'skype'
 cask 'spectacle'
 cask 'telegram'
 cask 'thunderbird'
+cask 'torbrowser'
+cask 'tunnelblick'
 cask 'virtualbox'
 cask 'virtualbox-extension-pack'
 cask 'vlc'
-
-###############################
-# App Specific                #
-###############################
-cask 'docker'
-cask 'mactex'
-cask 'torbrowser'
-cask 'tunnelblick'
+cask 'zotero'

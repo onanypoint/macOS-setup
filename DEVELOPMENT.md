@@ -6,7 +6,11 @@
 Conda is used as the main environment manager. The following step-by-step should be used on the local machine (if conda is not already installed).
 
 #### Installation
+##### macOS
 
+	brew install miniconda
+
+##### Linux
 1. Download the installer script from conda
 	
 		wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh  
@@ -70,6 +74,62 @@ At least two environments should be created. One for running jupyter and the oth
 	After launching the jupyter server, it will be available from your local browser on `localhost:8888`. 
 	
 	This will provide you with access to the file system local to the jupyter server. Also, thanks to the ipykernel, you can change between all your conda environment __without ever having to restart__ the jupyter server.
+	
+### Addons
+
+	
+	conda activate jupyter
+	
+	pip install jupyter_contrib_nbextensions
+	pip install jupyter_nbextensions_configurator
+	
+	jupyter contrib nbextension install --user
+	jupyter nbextensions_configurator enable --user
+	
+### Advanced Conda setup
+
+This setup enable users to work on _local_ files using _remote_ computational resource. It is assumed that you have followed the basic setup on both your local machine and the remote one.
+
+This is the recommanded way to proceed. It let's you fully manage your files, code, git, etc. locally while enjoying the computational power of our remote setup. Bonus point for the ability do everything locally when you're offline without having to worry about which notebook is where.
+
+> If you decide to use this method of development, if you still decide to launch a jupyter server on the remote machine, the kernel will be listed twice (once with conda_kernel and once with the registred kernel).
+
+__Using this technic still requires you to manage the environment on the remote machine!__
+
+* __Remote setup__
+
+	1. Activate your `jupyter` environment
+
+			conda activate jupyter
+			
+	2. Install [jupyter gateway](https://github.com/jupyter/kernel_gateway)
+
+
+	Using jupyter gateway will now let user access remotely any references kernel. In order to reference a kernel, use the following commands
+	
+		conda activate myfirstproject
+		python -m ipykernel install --name='myfirstproject' --display-name='myfirstproject' --user
+	
+	Once you have reference all you kernels, you can launch the jupyter gateway
+	
+		jupyter kernelgateway --ip 10.0.5.23 --port 12345
+	
+	You can list all installed kernels using
+	
+		jupyter kernelspec list
+	
+	You can remove a kernel using 
+	
+		jupyter kernelspec uninstall unwanted-kernel
+		
+		
+	If you want to add quickly all your current environment conda, use
+	
+		conda env list | cut -d" " -f1 | tail -n+4 |xargs -I '{}'  python -m ipykernel install --name='{}' --user
+	**Reference**
+	
+	- [Github Issue](https://github.com/jupyter/kernel_gateway/issues/197#issuecomment-249866891)
+
 	
 ### Version control of Notebooks
 
