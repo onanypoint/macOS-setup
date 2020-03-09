@@ -10,8 +10,9 @@
         "0,0"
       ],
       "bind": {
-        "0,0": "jupyter-notebook:confirm-restart-kernel-and-run-all-cells",
-        "u": "jupyter-notebook:undo-cell-deletion"
+        "u": "jupyter-notebook:undo-cell-deletion",
+        "0,0": "jupyter-notebook:confirm-restart-kernel-and-clear-output",
+        "9,9": "jupyter-notebook:confirm-restart-kernel-and-run-all-cells"
       }
     }
   },
