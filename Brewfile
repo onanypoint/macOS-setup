@@ -3,8 +3,8 @@
 ###############################
 tap 'beeftornado/rmtree'
 tap 'buo/cask-upgrade'
-tap 'caskroom/cask'
-tap 'caskroom/versions'
+tap 'homebrew/cask-cask'
+tap 'homebrew/cask-versions'
 tap 'homebrew/bundle'
 
 ###############################
@@ -12,7 +12,7 @@ tap 'homebrew/bundle'
 ###############################
 brew 'bat'
 brew 'cmake'
-brew 'curl', args: ["with-openssl"], link: true, force: true
+#brew 'curl', args: ["with-openssl"], link: true, force: true
 brew 'git'
 brew 'htop'
 brew 'jq'
