@@ -3,7 +3,6 @@
 ###############################
 tap 'beeftornado/rmtree'
 tap 'buo/cask-upgrade'
-tap 'homebrew/cask-cask'
 tap 'homebrew/cask-versions'
 tap 'homebrew/bundle'
 
@@ -31,15 +30,11 @@ brew 'vim'
 brew 'wget'
 brew 'youtube-dl'
 brew 'zsh'
-
+brew 'sshfs'
 ###############################
 # Development                 #
 ###############################
 cask 'miniconda'
-cask 'java8'
-brew 'sbt'
-brew 'scala'
-brew 'apache-spark'
 cask 'visual-studio-code'
 cask 'sublime-text'
 
@@ -65,7 +60,7 @@ cask 'skype'
 cask 'spectacle'
 cask 'telegram'
 cask 'thunderbird'
-cask 'torbrowser'
+cask 'tor-browser'
 cask 'tunnelblick'
 cask 'virtualbox'
 cask 'virtualbox-extension-pack'

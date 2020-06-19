@@ -29,6 +29,8 @@
     l = log --abbrev-commit --decorate --format=format:'%C(auto)%h - %as (%ar)%d%n%C(reset)''          %s%C(dim white) - %an%C(reset)%n'
     st = "status --short --branch"
 
+    fdiff = "!f() { git diff $@ --name-only | fzf -m --ansi --preview 'git diff $@ --color=always -- {-1}'; }; f"
+
     stash-pop-force = !git stash show -p | git apply && git stash drop
 
 [status]
@@ -47,3 +49,5 @@
             else . end'"
     smudge = cat
     required = true
+[pull]
+	rebase = false
