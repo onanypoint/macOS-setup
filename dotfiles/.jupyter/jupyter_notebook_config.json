@@ -3,6 +3,6 @@
     "nbserver_extensions": {
       "jupyter_nbextensions_configurator": true
     },
-    "password": "sha1:035db523ffd9:6934ecebc5685b486e69376b49a9b1bba5b4b368"
+    "password": "argon2:$argon2id$v=19$m=10240,t=10,p=8$uy82zAH0ujaP2yWIRRVIEw$TMabjbcQe8J+XIGnaXEotg"
   }
 }

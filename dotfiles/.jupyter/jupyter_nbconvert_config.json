@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "Exporter": {
+    "template_path": [
+      ".",
+      "/usr/local/Caskroom/miniconda/base/envs/jupyter/lib/python3.9/site-packages/jupyter_contrib_nbextensions/templates",
+      "/usr/local/Caskroom/miniconda/base/envs/jupyter/lib/python3.10/site-packages/jupyter_contrib_nbextensions/templates"
+    ],
+    "preprocessors": [
+      "jupyter_contrib_nbextensions.nbconvert_support.CodeFoldingPreprocessor",
+      "jupyter_contrib_nbextensions.nbconvert_support.PyMarkdownPreprocessor"
+    ]
+  }
+}
