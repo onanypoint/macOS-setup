@@ -22,21 +22,40 @@ else
 
 fi
 
+# Disable natural scrolling
+defaults write NSGlobalDomain com.apple.swipescrolldirection -bool FALSE
+
+# Show hidden file
+defaults write com.apple.Finder AppleShowAllFiles true
+
+# Restart Finder
+killall Finder
+
+# Check for zrezto and install if we don't have it
+if [ ! -d "${ZDOTDIR:-$HOME}/.zprezto" ]; then
+  echo "Installing Prezto"
+  git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
+
+  # setopt EXTENDED_GLOB
+  # for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/^README.md(.N); do
+  #   ln -s "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}"
+  # done
+
+  chsh -s /bin/zsh
+fi
+
 # Check for Homebrew and install if we don't have it
 if test ! $(which brew); then
   /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
 
-echo "Installing stuff via Homebrew"
 # Update Homebrew recipes
+echo "Installing stuff via Homebrew"
 brew update
-
-# Install brew package
-# brew tap homebrew/bundle
 brew bundle
 
-echo "Updating preferences using Mackup"
 # Restore dotfiles
+echo "Updating preferences using Mackup"
 if [[ -f "~/.mackup" ]]; then
   echo "Mackup file already exists, aborting"
 else
@@ -45,12 +64,11 @@ else
   mackup restore
 fi
 
-echo "Setting preferences"
-
 # Set macOS preferences
-source macos.setup
-source macos.prefs
-source macos.nvram
+echo "Setting preferences"
+source setup/settings.sh
+source setup/preferences.sh
+source setup/nvram.sh
 
 # macOS security 101
 # Definitely check out in more details the README

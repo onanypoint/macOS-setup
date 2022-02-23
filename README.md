@@ -16,3 +16,10 @@ The macOS-setup project is an opinionated configuration which meets the needs of
 - Downloads, installs, and configures non-App Store software applications. 
 - Applies basic and default software settings.
 - Sets up and configures installed software for use.
+
+
+## Command
+
+Run the setup script using
+
+    sh install.sh -n <computer-name>
