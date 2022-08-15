@@ -1,6 +1,21 @@
 #!/usr/bin/env bash
 
 ###############################################################################
+# Homebrew                                                                    #
+###############################################################################
+
+# Disable Homebrew user behavior analytics'
+command='export HOMEBREW_NO_ANALYTICS=1'
+declare -a profile_files=("$HOME/.bash_profile" "$HOME/.zprofile")
+for profile_file in "${profile_files[@]}"
+do
+    touch "$profile_file"
+    if ! grep -q "$command" "${profile_file}"; then
+        echo "$command" >> "$profile_file"
+    fi
+done
+
+###############################################################################
 # Tmux                                                                        #
 ###############################################################################
 
@@ -14,6 +29,24 @@ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 # Avoid automatic chrome sync login
 defaults write com.google.Chrome SyncDisabled -bool true
 defaults write com.google.Chrome RestrictSigninToPattern -string ".*@example.com"
+
+# Uninstall Google update
+googleUpdateFile=~/Library/Google/GoogleSoftwareUpdate/GoogleSoftwareUpdate.bundle/Contents/Resources/ksinstall
+if [ -f "$googleUpdateFile" ]; then
+    $googleUpdateFile --nuke
+    echo Uninstalled google update
+else
+    echo Google update file does not exist
+fi
+
+###############################################################################
+# Firefox                                                                     #
+###############################################################################
+
+# Enable Firefox policies so the telemetry can be configured.
+defaults write /Library/Preferences/org.mozilla.firefox EnterprisePoliciesEnabled -bool TRUE
+# Disable sending usage data
+defaults write /Library/Preferences/org.mozilla.firefox DisableTelemetry -bool TRUE
 
 ###############################################################################
 # Sublime Text 3                                                              #

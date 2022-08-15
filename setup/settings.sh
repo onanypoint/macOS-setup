@@ -3,6 +3,7 @@
 # Thanks to 
 # - Mathias Bynens, https://mths.be/macos
 # - Dries Vints, https://github.com/driesvints
+# - https://privacy.sexy/
 
 # Ask for the administrator password upfront
 sudo -v
@@ -23,9 +24,6 @@ defaults write com.apple.NetworkBrowser DisableAirDrop -bool YES
 
 # Disable Remote Apple Events
 sudo systemsetup -setremoteappleevents off
-
-# Disable Printer Sharing
-cupsctl --no-share-printers
 
 # Disable iCloud drive
 defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
@@ -57,6 +55,40 @@ defaults write com.apple.loginwindow LoginwindowLaunchesRelaunchApps -bool false
 defaults write com.apple.LaunchServices LSQuarantine -bool NO
 
 ###############################################################################
+# Security                                                                    #
+###############################################################################
+
+# Disables signing in as Guest from the login screen
+defaults write /Library/Preferences/com.apple.loginwindow GuestEnabled -bool NO
+
+# Disables Guest access to file shares over AF
+defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server AllowGuestAccess -bool NO
+
+# Disables Guest access to file shares over SMB
+defaults write /Library/Preferences/com.apple.AppleFileServer guestAccess -bool NO
+
+# Disable remote login (incoming SSH and SFTP connections)
+echo 'yes' | systemsetup -setremotelogin off
+
+# Disable insecure TFTP service
+launchctl disable 'system/com.apple.tftpd'
+
+# Disable Bonjour multicast advertising
+defaults write /Library/Preferences/com.apple.mDNSResponder.plist NoMulticastAdvertisements -bool true
+
+# Disable insecure telnet protocol
+launchctl disable system/com.apple.telnetd
+
+# Disable sharing of local printers with other computers
+cupsctl --no-share-printers
+
+# Disable printing from any address including the Internet
+cupsctl --no-remote-any
+
+# Disable remote printer administration
+cupsctl --no-remote-admin
+
+###############################################################################
 # General UI/UX                                                               #
 ###############################################################################
 
@@ -73,9 +105,6 @@ defaults write com.apple.print.PrintingPrefs "Quit When Finished" -bool true
 
 # Disable Captive Portal
 sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.captive.control Active -boolean false
-
-# Save to Disk by Default
-defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
 
 # Require an administrator password to access system-wide preferences"
 security authorizationdb read system.preferences > /tmp/system.preferences.plist &&/usr/libexec/PlistBuddy -c "Set :shared false" /tmp/system.preferences.plist && security authorizationdb write system.preferences < /tmp/system.preferences.plist
@@ -106,6 +135,9 @@ launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.
 
 # Disable auto-correct
 defaults write -g NSAutomaticSpellingCorrectionEnabled -bool false
+
+# Disable Internet based spell correction
+defaults write NSGlobalDomain WebAutomaticSpellingCorrectionEnabled -bool false
 
 # Disable app verification in macOS
 defaults write com.apple.LaunchServices LSQuarantine -bool NO
@@ -418,6 +450,36 @@ defaults write NSGlobalDomain com.apple.springing.enabled -bool true
 
 # Remove the spring loading delay for directories
 defaults write NSGlobalDomain com.apple.springing.delay -float 0
+
+###############################################################################
+# Siri                                                                        #
+###############################################################################
+
+# Hide Siri from menu bar
+defaults write com.apple.systemuiserver 'NSStatusItem Visible Siri' 0
+
+# Hide Siri from status menu
+defaults write com.apple.Siri 'StatusMenuVisible' -bool false
+defaults write com.apple.Siri 'UserHasDeclinedEnable' -bool true
+
+# Opt-out from Siri data collection
+defaults write com.apple.assistant.support 'Siri Data Sharing Opt-In Status' -int 2
+
+
+###############################################################################
+# Remote Management Service                                                   #
+###############################################################################
+
+# Deactivate the Remote Management Service
+sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -deactivate -stop
+
+# Remove Apple Remote Desktop Settings
+sudo rm -rf /var/db/RemoteManagement
+sudo defaults delete /Library/Preferences/com.apple.RemoteDesktop.plist
+defaults delete ~/Library/Preferences/com.apple.RemoteDesktop.plist
+sudo rm -r /Library/Application\ Support/Apple/Remote\ Desktop/ 
+rm -r ~/Library/Application\ Support/Remote\ Desktop/
+rm -r ~/Library/Containers/com.apple.RemoteDesktop
 
 ###############################################################################
 ###############################################################################
