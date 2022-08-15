@@ -102,8 +102,28 @@ elif [ "$(expr substr $(uname -s) 1 5)"=="Linux" ]; then
     # Do something under GNU/Linux platform
 fi
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
+#   ---------------------------------------
+#   5.  Config
+#   ---------------------------------------
+
+#   5.0 McFly
+#   ---------------------------------------
+
+export MCFLY_RESULTS_SORT=LAST_RUN
+export MCFLY_DISABLE_MENU=TRUE
+export MCFLY_INTERFACE_VIEW=TOP
+eval "$(mcfly init zsh)"
+
+#   5.1 NVM
+#   ---------------------------------------
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+
+#   5.2 Conda
+#   ---------------------------------------
+
 __conda_setup="$('/usr/local/Caskroom/miniconda/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
@@ -115,9 +135,5 @@ else
     fi
 fi
 unset __conda_setup
-# <<< conda initialize <<<
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
-[ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
-
+export PATH="$HOME/.poetry/bin:$PATH"
