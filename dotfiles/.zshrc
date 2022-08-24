@@ -10,12 +10,6 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
-if [ -f /etc/profile ]; then
-    PATH=""
-    source /etc/profile
-fi
-
-
 #   #############################
 #   CUSTOM CONFIG
 #   #############################
@@ -102,6 +96,7 @@ elif [ "$(expr substr $(uname -s) 1 5)"=="Linux" ]; then
     # Do something under GNU/Linux platform
 fi
 
+
 #   ---------------------------------------
 #   5.  Config
 #   ---------------------------------------
@@ -118,12 +113,14 @@ eval "$(mcfly init zsh)"
 #   ---------------------------------------
 
 export NVM_DIR="$HOME/.nvm"
-[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
-[ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+#[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+#[ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
 #   5.2 Conda
 #   ---------------------------------------
 
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$('/usr/local/Caskroom/miniconda/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
@@ -135,5 +132,4 @@ else
     fi
 fi
 unset __conda_setup
-
-export PATH="$HOME/.poetry/bin:$PATH"
+# <<< conda initialize <<<
