@@ -1,0 +1,121 @@
+{
+  "[python]": {},
+  "explorer.confirmDragAndDrop": false,
+  "python.condaPath": "/usr/local/miniconda3/bin/conda",
+  "python.formatting.provider": "black",
+  "explorer.confirmDelete": false,
+  "workbench.startupEditor": "newUntitledFile",
+  "python.testing.unittestEnabled": true,
+  "autoDocstring.docstringFormat": "google",
+  "editor.rulers": [80, 100, 120, 150],
+  "files.trimTrailingWhitespace": true,
+  "editor.formatOnPaste": true,
+  "editor.snippetSuggestions": "top",
+  "workbench.colorCustomizations": {
+    "sideBar.background": "#232830",
+    "sideBar.foreground": "#979c9e"
+  },
+  "editor.tokenColorCustomizations": {
+    "textMateRules": [
+      {
+        "scope": [
+          "string.quoted.docstring.multi.python",
+          "string.quoted.docstring.multi.python punctuation.definition.string.begin.python",
+          "string.quoted.docstring.multi.python punctuation.definition.string.end.python"
+        ],
+        "settings": {
+          "foreground": "#65737e"
+        }
+      }
+    ]
+  },
+  "terminal.integrated.shell.osx": "/bin/zsh",
+  "cSpell.userWords": [
+    "deepo",
+    "dfcoords",
+    "dfmetrics",
+    "fuzzywuzzy",
+    "Gaph",
+    "inplace",
+    "jsons",
+    "Lexicode",
+    "matomo",
+    "metadatas",
+    "mutool",
+    "networkx",
+    "numpy",
+    "pylint",
+    "rasterized",
+    "sciper",
+    "scriper",
+    "sklearn",
+    "viewsets"
+  ],
+  "explorer.decorations.colors": false,
+  "editor.scrollBeyondLastLine": false,
+  "python.formatting.autopep8Path": "/Users/yoannponti/.miniconda3/envs/deepo/bin/autopep8",
+  "python.formatting.autopep8Args": ["--max-line-length 150"],
+  "workbench.editor.closeEmptyGroups": false,
+  "terminal.integrated.inheritEnv": false,
+  "todo-tree.highlights.enabled": true,
+  "workbench.editor.enablePreview": false,
+  "search.collapseResults": "alwaysExpand",
+  "search.showLineNumbers": true,
+  "search.smartCase": true,
+  "editor.fontSize": 13,
+  "editor.renderWhitespace": "selection",
+  "editor.cursorStyle": "block",
+  "editor.multiCursorModifier": "ctrlCmd",
+  "editor.wordWrap": "wordWrapColumn",
+  "editor.wordWrapColumn": 250,
+  "workbench.preferredDarkColorTheme": "Spacegray Ocean Dark",
+  "workbench.tips.enabled": false,
+  "todo-tree.tree.showScanModeButton": false,
+  "javascript.format.enable": false,
+  "cSpell.language": "en,en-GB",
+  "cmake.configureOnOpen": true,
+  "files.trimFinalNewlines": true,
+  "editor.formatOnType": true,
+  "json.format.enable": false,
+  "[vue]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[html]": {
+    "editor.formatOnSave": false
+  },
+  "files.exclude": {
+    "**/*.pyc": { "when": "$(basename).py" },
+    "**/__pycache__": true
+  },
+  "diffEditor.ignoreTrimWhitespace": false,
+  "workbench.tree.indent": 16,
+  "workbench.editorAssociations": {
+    "*.ipynb": "jupyter-notebook"
+  },
+  "javascript.updateImportsOnFileMove.enabled": "never",
+  "cSpell.checkLimit": 1000,
+  "cSpell.diagnosticLevel": "Error",
+  "cSpell.dictionaryDefinitions": [],
+  "cSpell.dictionaries": ["en"],
+  "notebook.cellToolbarLocation": {
+    "default": "right",
+    "jupyter-notebook": "left"
+  },
+  "html.format.templating": true,
+  "html.format.enable": false,
+  "jupyter.allowImportFromNotebook": false,
+  "jupyter.sendSelectionToInteractiveWindow": true,
+  "jupyter.useNotebookEditor": false,
+  "jupyter.askForKernelRestart": false,
+  "notebook.cellToolbarVisibility": "hover",
+  "notebook.insertToolbarLocation": "hidden",
+  "notebook.lineNumbers": "on",
+  "notebook.showCellStatusBar": "hidden",
+  "bracketPairColorizer.depreciation-notice": false,
+  "workbench.colorTheme": "Spacegray Ocean Dark",
+  "editor.formatOnSave": true,
+  "editor.largeFileOptimizations": false,
+  "redhat.telemetry.enabled": false,
+  "terminal.integrated.enableMultiLinePasteWarning": false,
+  "window.zoomLevel": -1
+}
