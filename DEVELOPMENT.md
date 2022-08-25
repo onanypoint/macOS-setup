@@ -2,6 +2,10 @@
 
 ## Python
 
+### Poetry
+
+You can find the latest install guide [here](https://python-poetry.org/docs/).
+
 ### Conda Setup
 
 Conda is used as the main environment manager. The following step-by-step should be used on the local machine (if conda is not already installed).
@@ -146,7 +150,7 @@ This is the recommanded way to proceed. It let's you fully manage your files, co
 
 - [Github Issue](https://github.com/jupyter/kernel_gateway/issues/197#issuecomment-249866891)
 
-### Version control of Notebooks
+### One solution for version control of Notebooks
 
 As notebooks are just plain text files, they can be version controlled easily.
 
