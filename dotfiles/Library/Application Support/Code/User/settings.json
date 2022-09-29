@@ -29,7 +29,6 @@
       }
     ]
   },
-  "terminal.integrated.shell.osx": "/bin/zsh",
   "cSpell.userWords": [
     "deepo",
     "dfcoords",
@@ -56,7 +55,6 @@
   "python.formatting.autopep8Path": "/Users/yoannponti/.miniconda3/envs/deepo/bin/autopep8",
   "python.formatting.autopep8Args": ["--max-line-length 150"],
   "workbench.editor.closeEmptyGroups": false,
-  "terminal.integrated.inheritEnv": false,
   "todo-tree.highlights.enabled": true,
   "workbench.editor.enablePreview": false,
   "search.collapseResults": "alwaysExpand",
@@ -117,5 +115,8 @@
   "editor.largeFileOptimizations": false,
   "redhat.telemetry.enabled": false,
   "terminal.integrated.enableMultiLinePasteWarning": false,
-  "window.zoomLevel": -1
+  "window.zoomLevel": -1,
+  "terminal.external.osxExec": "iTerm2.app",
+  "terminal.integrated.inheritEnv": false,
+  "terminal.integrated.shellIntegration.enabled": false
 }
