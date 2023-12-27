@@ -60,5 +60,24 @@
   {
     "key": "alt+j",
     "command": "editor.action.showHover"
+  },
+  {
+    "command": "runCommands",
+    "key": "ctrl+shift+0 ctrl+shift+0",
+    "args": {
+      "commands": ["notebook.cell.clearOutputs"]
+    }
+  },
+  {
+    "command": "runCommands",
+    "key": "ctrl+shift+9 ctrl+shift+9",
+    "args": {
+      "commands": ["jupyter.restartkernel", "notebook.cell.clearOutputs"]
+    }
+  },
+  {
+    "key": "shift+m",
+    "command": "notebook.cell.joinSelected",
+    "when": "notebookEditorFocused && !notebookEditorHasMultipleKernels && !inputFocus"
   }
 ]

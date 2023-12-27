@@ -44,9 +44,9 @@ fi
 ###############################################################################
 
 # Enable Firefox policies so the telemetry can be configured.
-defaults write /Library/Preferences/org.mozilla.firefox EnterprisePoliciesEnabled -bool TRUE
+sudo defaults write /Library/Preferences/org.mozilla.firefox EnterprisePoliciesEnabled -bool TRUE
 # Disable sending usage data
-defaults write /Library/Preferences/org.mozilla.firefox DisableTelemetry -bool TRUE
+sudo defaults write /Library/Preferences/org.mozilla.firefox DisableTelemetry -bool TRUE
 
 ###############################################################################
 # Sublime Text 3                                                              #
@@ -55,6 +55,27 @@ defaults write /Library/Preferences/org.mozilla.firefox DisableTelemetry -bool T
 # Install Theme
 # cd ~/Library/Application\ Support/Sublime\ Text\ 3/Packages
 # git clone git://github.com/chriskempson/base16-textmate.git Base16
+
+###############################################################################
+# Transmission                                                                #
+###############################################################################
+
+# Don’t prompt for confirmation before removing non-downloading active transfers
+sudo defaults write org.m0k.transmission CheckRemoveDownloading -bool true
+
+# Hide the donate message
+defaults write org.m0k.transmission WarningDonate -bool false
+# Hide the legal disclaimer
+defaults write org.m0k.transmission WarningLegal -bool false
+
+# IP block list.
+# Source: https://giuliomac.wordpress.com/2014/02/19/best-blocklist-for-transmission/
+defaults write org.m0k.transmission BlocklistNew -bool true
+defaults write org.m0k.transmission BlocklistURL -string "http://john.bitsurge.net/public/biglist.p2p.gz"
+defaults write org.m0k.transmission BlocklistAutoUpdate -bool true
+
+# Randomize port on launch
+defaults write org.m0k.transmission RandomPort -bool true
 
 ###############################################################################
 # iTunes                                                                      #
@@ -113,6 +134,11 @@ defaults write com.apple.mail DisableInlineAttachmentViewing -bool true
 
 # Disable automatic spell checking
 # defaults write com.apple.mail SpellCheckingBehavior -string "NoSpellCheckingEnabled"
+
+# Show unread count in dock (default: inbox only)
+# inbox only = 1
+# all mailboxes = 2
+defaults write com.apple.mail MailDockBadge -int 1
 
 ###############################################################################
 # Safari & WebKit                                                             #
@@ -214,20 +240,23 @@ defaults write com.apple.terminal StringEncodings -array 4
 # Address Book, Dashboard, iCal, TextEdit, and Disk Utility                   #
 ###############################################################################
 
-# Use plain text mode for new TextEdit documents
+# TextEdit: Use plain text mode for new TextEdit documents
 defaults write com.apple.TextEdit RichText -int 0
 
-# Open and save files as UTF-8 in TextEdit
+# TextEdit: Open and save files as UTF-8 in TextEdit
 defaults write com.apple.TextEdit PlainTextEncoding -int 4
 defaults write com.apple.TextEdit PlainTextEncodingForWrite -int 4
 
-# Show 24 hours a day
+# TextEdit: Display html files as html code instead of formatted text (default: off)
+defaults write com.apple.TextEdit IgnoreHTML -bool true
+
+# iCal: Show 24 hours a day
 defaults write com.apple.ical "number of hours displayed" 24
 
-# Week should start on Monday
+# iCal: Week should start on Monday
 defaults write com.apple.ical "first day of the week" 1
 
-# Day starts at 9AM
+# iCal: Day starts at 9AM
 defaults write com.apple.ical "first minute of work hours" 540
 
 # Allow text selection in Quick Look
@@ -241,6 +270,9 @@ defaults write com.apple.messageshelper.MessageController SOInputLineSettings -d
 
 # Messages: Disable continuous spell checking
 defaults write com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "continuousSpellCheckingEnabled" -bool false
+
+# Disk Utility: Show all devices (default: off)
+defaults write com.apple.DiskUtility SidebarShowAllDevices -bool true
 
 ###############################################################################
 # Mac App Store                                                               #
@@ -261,14 +293,71 @@ defaults write com.apple.commerce AutoUpdate -bool true
 # Allow the App Store to reboot machine on macOS updates
 defaults write com.apple.commerce AutoUpdateRestartRequired -bool true
 
+# Disable video autoplay (default: on)
+# on = on
+# off = off
+defaults write com.apple.AppStore AutoPlayVideoSetting -string "off"
+defaults write com.apple.AppStore UserSetAutoPlayVideoSetting -bool true
+
+# Disable in app reviews (default: on) (needs reboot)
+defaults write com.apple.AppStore InAppReviewEnabled -bool false
+
+# Enable debug menu in the mac app store
+defaults write com.apple.AppStore ShowDebugMenu -bool true
+
 ###############################################################################
 # Spotlight                                                                   #
 ###############################################################################
 
+# Setup Search results
+
+defaults delete com.apple.Spotlight orderedItems 2>/dev/null
+
+/usr/libexec/PlistBuddy -c 'Add :orderedItems array' ~/Library/Preferences/com.apple.Spotlight.plist
+
+enable_disable_search_result_category () {
+  /usr/libexec/PlistBuddy -c 'Add :orderedItems:'$1':enabled bool '$3'' ~/Library/Preferences/com.apple.Spotlight.plist
+  /usr/libexec/PlistBuddy -c 'Add :orderedItems:'$1':name string '$2'' ~/Library/Preferences/com.apple.Spotlight.plist
+}
+
+spotlightconfig=(
+"0      APPLICATIONS                    true"
+"1      MENU_EXPRESSION                 false"
+"2      CONTACT                         false"
+"3      MENU_CONVERSION                 false"
+"4      MENU_DEFINITION                 false"
+"5      DOCUMENTS                       true"
+"6      EVENT_TODO                      true"
+"7      DIRECTORIES                     true"
+"8      FONTS                           false"
+"9      IMAGES                          true"
+"10     MESSAGES                        false"
+"11     MOVIES                          false"
+"12     MUSIC                           false"
+"13     MENU_OTHER                      true"
+"14     PDF                             true"
+"15     PRESENTATIONS                   true"
+"16     MENU_SPOTLIGHT_SUGGESTIONS      false"
+"17     SPREADSHEETS                    true"
+"18     SYSTEM_PREFS                    true"
+"19     TIPS                            false"
+"20     BOOKMARKS                       false"
+)
+
+for entry in "${spotlightconfig[@]}"; do
+  ITEMNR=$(echo $entry | awk '{print $1}')
+  SPOTLIGHTENTRY=$(echo $entry | awk '{print $2}')
+  ENABLED=$(echo $entry | awk '{print $3}')
+  enable_disable_search_result_category $ITEMNR $SPOTLIGHTENTRY $ENABLED
+done
+
 # Disable Spotlight indexing for any volume that gets mounted and has not yet
 # been indexed before.
 # Use `sudo mdutil -i off "/Volumes/foo"` to stop indexing any volume.
-sudo defaults write /.Spotlight-V100/VolumeConfiguration Exclusions -array "/Volumes"
+sudo defaults write /System/Volumes/Data/.Spotlight-V100/VolumeConfiguration.plist Exclusions -array "$HOME/Downloads"
+
+# Apply changes
+defaults read com.apple.Spotlight orderedItems &>/dev/null
 
 # Load new settings before rebuilding the index
 killall mds > /dev/null 2>&1

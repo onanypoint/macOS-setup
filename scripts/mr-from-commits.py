@@ -68,8 +68,8 @@ def main(args):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Create a new branch from a source branch and a set of commits using cherry-picks')
-    parser.add_argument('source_branch', help='Name of the source branch')
-    parser.add_argument('destination_branch', help='Destination branch')
+    parser.add_argument('-s', '--source-branch', help='Name of the source branch')
+    parser.add_argument('-d', '--destination-branch', help='Destination branch')
     parser.add_argument('commits', nargs="+", help='Commits SHAs')
     parser.add_argument('-np', '--not-push', action="store_false", help="Don't push directly the branch and checkout original branch")
 

@@ -8,7 +8,6 @@ tap 'buo/cask-upgrade'
 ###############################
 # Binaries                    #
 ###############################
-brew 'bat'
 brew 'cmake'
 brew 'git'
 brew 'htop'
@@ -39,7 +38,7 @@ cask 'alfred'
 cask 'amethyst'
 cask 'appcleaner'
 cask 'chromium'
-cask 'clipy'
+cask 'colima'
 cask 'docker'
 cask 'dozer'
 cask 'easyfind'
@@ -54,6 +53,6 @@ cask 'telegram'
 cask 'tor-browser'
 cask 'typora'
 cask 'virtualbox'
-cask 'virtualbox-extension-pack' # Only for personal use !
+#cask 'virtualbox-extension-pack' # Only for personal use !
 cask 'vlc'
 cask 'zotero'

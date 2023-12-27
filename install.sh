@@ -19,7 +19,6 @@ else
     sudo scutil --set ComputerName "${COMPUTER_NAME}"
     sudo scutil --set HostName "${COMPUTER_NAME}"
     sudo scutil --set LocalHostName "${COMPUTER_NAME}"
-
 fi
 
 # Disable natural scrolling

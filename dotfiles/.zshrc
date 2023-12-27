@@ -109,17 +109,17 @@ export MCFLY_DISABLE_MENU=TRUE
 export MCFLY_INTERFACE_VIEW=TOP
 eval "$(mcfly init zsh)"
 
-#   5.1 NVM
+#   5.1 Poetry
 #   ---------------------------------------
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
-[ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+export PATH="$HOME/.local/bin:$PATH"
 
-#   5.2 Poetry
+#   5.2 Auto Env
+#   https://github.com/hyperupcall/autoenv
 #   ---------------------------------------
 
-export PATH="$HOME/.poetry/bin:$PATH"
+export AUTOENV_ENV_FILENAME=.autoenv
+source $(brew --prefix autoenv)/activate.sh
 
 #   5.3 Conda
 #   ---------------------------------------
@@ -139,3 +139,7 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
+#   5.3 Java
+#   ---------------------------------------
+
+export PATH="/usr/local/opt/openjdk@11/bin:$PATH"

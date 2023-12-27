@@ -65,4 +65,4 @@ touch /Applications/Xcode.app
 
 ## Usefull Links
 
-- https://github.com/drduh/macOS-Security-and-Privacy-Guide
+- ∂

@@ -1,11 +1,12 @@
 {
-  "[python]": {},
+  "[python]": {
+    "editor.formatOnType": true
+  },
   "explorer.confirmDragAndDrop": false,
   "python.condaPath": "/usr/local/miniconda3/bin/conda",
   "python.formatting.provider": "black",
   "explorer.confirmDelete": false,
   "workbench.startupEditor": "newUntitledFile",
-  "python.testing.unittestEnabled": true,
   "autoDocstring.docstringFormat": "google",
   "editor.rulers": [80, 100, 120, 150],
   "files.trimTrailingWhitespace": true,
@@ -30,24 +31,34 @@
     ]
   },
   "cSpell.userWords": [
+    "axios",
     "deepo",
     "dfcoords",
     "dfmetrics",
+    "filterset",
     "fuzzywuzzy",
     "Gaph",
+    "Gestion",
     "inplace",
     "jsons",
     "Lexicode",
     "matomo",
+    "metabase",
     "metadatas",
     "mutool",
     "networkx",
     "numpy",
+    "pinia",
+    "powerset",
     "pylint",
+    "pyproject",
     "rasterized",
     "sciper",
     "scriper",
     "sklearn",
+    "splitpanes",
+    "tqdm",
+    "typer",
     "viewsets"
   ],
   "explorer.decorations.colors": false,
@@ -69,7 +80,6 @@
   "workbench.preferredDarkColorTheme": "Spacegray Ocean Dark",
   "workbench.tips.enabled": false,
   "todo-tree.tree.showScanModeButton": false,
-  "javascript.format.enable": false,
   "cSpell.language": "en,en-GB",
   "cmake.configureOnOpen": true,
   "files.trimFinalNewlines": true,
@@ -97,15 +107,17 @@
   "cSpell.dictionaries": ["en"],
   "notebook.cellToolbarLocation": {
     "default": "right",
-    "jupyter-notebook": "left"
+    "jupyter-notebook": "hidden"
+  },
+  "[javascript]": {
+    "editor.formatOnSave": false,
+    "editor.formatOnType": true
   },
   "html.format.templating": true,
   "html.format.enable": false,
   "jupyter.allowImportFromNotebook": false,
-  "jupyter.sendSelectionToInteractiveWindow": true,
   "jupyter.useNotebookEditor": false,
   "jupyter.askForKernelRestart": false,
-  "notebook.cellToolbarVisibility": "hover",
   "notebook.insertToolbarLocation": "hidden",
   "notebook.lineNumbers": "on",
   "notebook.showCellStatusBar": "hidden",
@@ -115,8 +127,40 @@
   "editor.largeFileOptimizations": false,
   "redhat.telemetry.enabled": false,
   "terminal.integrated.enableMultiLinePasteWarning": false,
-  "window.zoomLevel": -1,
   "terminal.external.osxExec": "iTerm2.app",
   "terminal.integrated.inheritEnv": false,
-  "terminal.integrated.shellIntegration.enabled": false
+  "terminal.integrated.shellIntegration.enabled": false,
+  "arduino.commandPath": "/Applications/Arduino.app",
+  "files.associations": {
+    "*/templates/*/*.html": "django-html",
+    "*.py": "python",
+    "*/templates/*/*.ts": "typescript"
+  },
+  "emmet.includeLanguages": {
+    "django-html": "html"
+  },
+  "files.autoSave": "afterDelay",
+  "python.testing.unittestEnabled": true,
+  "python.testing.cwd": "",
+  "python.testing.pytestEnabled": true,
+  "jupyter.interactiveWindow.textEditor.executeSelection": true,
+  "jupyter.experiments.enabled": false,
+  "jupyter.experiments.optInto": [],
+  "notebook.cellFocusIndicator": "border",
+  "notebook.output.textLineLimit": 50,
+  "vue.features.codeActions.savingTimeLimit": 2000,
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.unicodeHighlight.ambiguousCharacters": false,
+  "gitlens.views.branches.branches.layout": "list",
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "update.showReleaseNotes": false,
+  "eslint.quiet": true,
+  "eslint.codeActionsOnSave.rules": null,
+  "javascript.format.enable": false,
+  "javascript.preferences.quoteStyle": "single",
+  "typescript.preferences.quoteStyle": "single"
 }

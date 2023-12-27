@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 
-# Thanks to 
+# Thanks to
 # - Mathias Bynens, https://mths.be/macos
 # - Dries Vints, https://github.com/driesvints
+# - philiprein, https://github.com/philiprein/
 # - https://privacy.sexy/
 
 # Ask for the administrator password upfront
@@ -32,7 +33,7 @@ defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
 
-# Disable Guest user 
+# Disable Guest user
 sudo defaults write /Library/Preferences/com.apple.AppleFileServer guestAccess -bool NO
 sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server AllowGuestAccess -bool NO
 
@@ -52,32 +53,32 @@ defaults write com.apple.loginwindow TALLogoutSavesState -bool false
 defaults write com.apple.loginwindow LoginwindowLaunchesRelaunchApps -bool false
 
 # Turn Off “Application Downloaded from Internet” Warning in OS X with defaults write
-defaults write com.apple.LaunchServices LSQuarantine -bool NO
+defaults write com.apple.LaunchServices LSQuarantine -bool false
 
 ###############################################################################
 # Security                                                                    #
 ###############################################################################
 
 # Disables signing in as Guest from the login screen
-defaults write /Library/Preferences/com.apple.loginwindow GuestEnabled -bool NO
+sudo defaults write /Library/Preferences/com.apple.loginwindow GuestEnabled -bool NO
 
 # Disables Guest access to file shares over AF
-defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server AllowGuestAccess -bool NO
+sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server AllowGuestAccess -bool NO
 
 # Disables Guest access to file shares over SMB
-defaults write /Library/Preferences/com.apple.AppleFileServer guestAccess -bool NO
+sudo defaults write /Library/Preferences/com.apple.AppleFileServer guestAccess -bool NO
 
 # Disable remote login (incoming SSH and SFTP connections)
-echo 'yes' | systemsetup -setremotelogin off
+echo 'yes' | sudo systemsetup -setremotelogin off
 
 # Disable insecure TFTP service
-launchctl disable 'system/com.apple.tftpd'
+sudo launchctl disable 'system/com.apple.tftpd'
 
 # Disable Bonjour multicast advertising
-defaults write /Library/Preferences/com.apple.mDNSResponder.plist NoMulticastAdvertisements -bool true
+sudo defaults write /Library/Preferences/com.apple.mDNSResponder.plist NoMulticastAdvertisements -bool true
 
 # Disable insecure telnet protocol
-launchctl disable system/com.apple.telnetd
+sudo launchctl disable system/com.apple.telnetd
 
 # Disable sharing of local printers with other computers
 cupsctl --no-share-printers
@@ -88,9 +89,9 @@ cupsctl --no-remote-any
 # Disable remote printer administration
 cupsctl --no-remote-admin
 
-###############################################################################
-# General UI/UX                                                               #
-###############################################################################
+# ###############################################################################
+# # General UI/UX                                                               #
+# ###############################################################################
 
 # Expand Save Panel by Default
 defaults write -g NSNavPanelExpandedStateForSaveMode -bool true
@@ -108,9 +109,6 @@ sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.captive.c
 
 # Require an administrator password to access system-wide preferences"
 security authorizationdb read system.preferences > /tmp/system.preferences.plist &&/usr/libexec/PlistBuddy -c "Set :shared false" /tmp/system.preferences.plist && security authorizationdb write system.preferences < /tmp/system.preferences.plist
-
-# Disable the “Are you sure you want to open this application?” dialog"
-defaults write com.apple.LaunchServices LSQuarantine -bool false
 
 # Remove duplicates in the “Open With” menu (also see 'lscleanup' alias)
 /System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user
@@ -139,19 +137,41 @@ defaults write -g NSAutomaticSpellingCorrectionEnabled -bool false
 # Disable Internet based spell correction
 defaults write NSGlobalDomain WebAutomaticSpellingCorrectionEnabled -bool false
 
-# Disable app verification in macOS
-defaults write com.apple.LaunchServices LSQuarantine -bool NO
-
 # ###############################################################################
 # # Screen                                                                      #
 # ###############################################################################
+
+# Start screen saver when inactive (default: 20 minutes)
+# time in seconds
+# never = 0
+defaults -currentHost write com.apple.screensaver idleTime -int 300
+
+# Turn display off on battery when inactive (default: 2 minutes)
+# time in minutes
+# never = 0
+sudo pmset -b displaysleep 5
+
+# Show user name and photo (default: on)
+# on = false
+# off = true
+sudo defaults write /Library/Preferences/com.apple.loginwindow HideUserAvatarAndName -bool false
 
 # Require password immediately after sleep or screen saver begins
 defaults write com.apple.screensaver askForPassword -int 1
 defaults write com.apple.screensaver askForPasswordDelay -int 0
 
+# Show password hints (default: off)
+# on = 3
+# off = 0
+sudo defaults write /Library/Preferences/com.apple.loginwindow RetriesUntilHint -int 0
+
 # Enable subpixel font rendering on non-Apple LCDs
 defaults write NSGlobalDomain AppleFontSmoothing -int 2
+
+# Show the sleep, restart, and shut down buttons (default: on)
+# on = false
+# off = true
+sudo defaults write /Library/Preferences/com.apple.loginwindow PowerOffDisabled -bool false
 
 # Screen: Set hot corners
 # Possible values:
@@ -170,16 +190,17 @@ defaults write NSGlobalDomain AppleFontSmoothing -int 2
 # Top right screen corner → Desktop
 defaults write com.apple.dock wvous-bl-corner -int 0
 defaults write com.apple.dock wvous-bl-modifier -int 0
-defaults write com.apple.dock wvous-br-corner -int 13 
+defaults write com.apple.dock wvous-br-corner -int 13
 defaults write com.apple.dock wvous-br-modifier -int 0
 defaults write com.apple.dock wvous-tl-corner -int 0
 defaults write com.apple.dock wvous-tl-modifier -int 0
 defaults write com.apple.dock wvous-tr-corner -int 4
 defaults write com.apple.dock wvous-tr-modifier -int 0
 
-###############################################################################
-# MenuBar                                                                     #
-###############################################################################
+
+# ###############################################################################
+# # MenuBar                                                                     #
+# ###############################################################################
 
 # Dont hide and show the menu bar
 defaults write NSGlobalDomain _HIHideMenuBar -bool false
@@ -191,15 +212,23 @@ sudo defaults write com.apple.universalaccess reduceTransparency -bool true
 defaults write com.apple.menuextra.battery ShowPercent -string "YES"
 defaults write com.apple.menuextra.battery ShowTime -string "NO"
 
-###############################################################################
-# Finder                                                                      #
-###############################################################################
+# ###############################################################################
+# # Finder                                                                      #
+# ###############################################################################
 
 # Set wallpaper
 osascript -e 'tell application "Finder" to set desktop picture to POSIX file "/System/Library/Desktop Pictures/Solid Colors/Stone.png"'
 
 # Finder: Set Desktop as the default location for new windows'
-defaults write com.apple.finder NewWindowTarget -string "PfDe" 
+# computer = PfCm
+# volume = PfVo, "file:///"
+# home folder = PfHm, "file://${HOME}/"
+# desktop = PfDe, "file://${HOME}/Desktop/"
+# documents = PfDo, "file://${HOME}/Documents/"
+# icloud drive = PfID, "file://${HOME}/Library/Mobile%20Documents/com~apple~CloudDocs/"
+# recents = PfAF, "file:///System/Library/CoreServices/Finder.app/Contents/Resources/MyLibraries/myDocuments.cannedSearch/"
+# Other… = PfLo, "file:///full/path/here/"
+defaults write com.apple.finder NewWindowTarget -string "PfDe"
 
 # Allow quitting via ⌘ + Q though this will hide desktop icons
 defaults write com.apple.finder QuitMenuItem -bool true
@@ -207,13 +236,16 @@ defaults write com.apple.finder QuitMenuItem -bool true
 # Show all filename extensions
 defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 
-# Performing a search in the current folder by default
-defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
-
 # Disable the warning when changing a file extension
 defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
 
-# Do not show icons for hard drives servers and removable media on the desktop'
+# Performing a search in the current folder by default
+# search this mac = SCev
+# search the current folder = SCcf
+# use the previous search scope = SCsp
+defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
+
+# Do not show icons for hard drives servers and removable media on the desktop
 defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool false
 defaults write com.apple.finder ShowHardDrivesOnDesktop -bool false
 defaults write com.apple.finder ShowMountedServersOnDesktop -bool false
@@ -229,11 +261,32 @@ defaults write com.apple.finder FXInfoPanesExpanded -dict \
     OpenWith -bool true \
 	Privileges -bool true
 
-# Auto hide menu bar
-defaults write NSGlobalDomain _HIHideMenuBar -bool true
+# Keep folders on top when sorting by name on Desktop  (default: off)
+defaults write com.apple.finder _FXSortFoldersFirst -bool true
 
-# Keep folders on top when sorting by name on Desktop
+# Keep folders on top on desktop (default: off)
 defaults write com.apple.finder _FXSortFoldersFirstOnDesktop -bool true
+
+# Hide recent tags
+defaults write com.apple.finder ShowRecentTags -bool false
+
+# Disable handoff between this mac and your icloud devices (default: on)
+# on = true, true
+# off = false, false
+defaults -currentHost write com.apple.coreservices.useractivityd ActivityAdvertisingAllowed -bool false
+defaults -currentHost write com.apple.coreservices.useractivityd ActivityReceivingAllowed -bool false
+
+# Disable airdrop (default: "Off")
+# no one = "Off"
+# contacts only = "Contacts Only"
+# everyone = "Everyone"
+defaults write com.apple.sharingd DiscoverableMode -string "Contacts Only"
+
+# airplay receiver (default: on)
+defaults write -currentHost com.apple.controlcenter AirplayRecieverEnabled -bool false
+
+# Click wallpaper to reveal desktop setting to Only in Stage Manager
+defaults write com.apple.WindowManager EnableStandardClickToShowDesktop -bool false
 
 #
 # Scrolling
@@ -253,10 +306,11 @@ defaults write -g AppleShowScrollBars -string "Always"
 #
 
 # Use column view in all Finder windows by default
+# as icons = icnv
+# as list = Nlsv
+# as columns = clmv
+# as gallery = Flwv
 defaults write com.apple.finder FXPreferredViewStyle Clmv
-
-# Keep folders on top when sorting by name
-defaults write com.apple.finder _FXSortFoldersFirst -bool true
 
 # Show Full Path in Finder Title
 defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
@@ -273,8 +327,69 @@ defaults write com.apple.finder ShowSideBar -bool true
 # Set side bar icons to small
 defaults write NSGlobalDomain NSTableViewDefaultSizeMode -int 1
 
-# Use list view in all Finder windows by default
-defaults write com.apple.finder FXPreferredViewStyle -string "clmv"
+# Grouping (default: none)
+defaults write com.apple.finder FXPreferredGroupBy -string "Kind"
+
+#
+# Icon view
+#
+
+# desktop
+/usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
+# finder icon view
+/usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
+/usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
+
+# icon size (default: 64)
+# desktop
+/usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:iconSize 32" ~/Library/Preferences/com.apple.finder.plist
+# finder icon view
+/usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:iconSize 32" ~/Library/Preferences/com.apple.finder.plist
+/usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:iconSize 32" ~/Library/Preferences/com.apple.finder.plist
+
+# grid spacing (default: 54)
+# desktop
+/usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:gridSpacing 54" ~/Library/Preferences/com.apple.finder.plist
+# finder icon view
+/usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:gridSpacing 54" ~/Library/Preferences/com.apple.finder.plist
+/usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:gridSpacing 54" ~/Library/Preferences/com.apple.finder.plist
+
+# text size (default: 12)
+# desktop
+/usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:textSize 12" ~/Library/Preferences/com.apple.finder.plist
+# finder icon view
+/usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:textSize 12" ~/Library/Preferences/com.apple.finder.plist
+/usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:textSize 12" ~/Library/Preferences/com.apple.finder.plist
+
+# label position (default: bottom)
+# bottom = true
+# right = false
+# desktop
+/usr/libexec/PlistBuddy -c "Set DesktopViewSettings:IconViewSettings:labelOnBottom true" ~/Library/Preferences/com.apple.finder.plist
+# finder icon view
+/usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:labelOnBottom true" ~/Library/Preferences/com.apple.finder.plist
+/usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:labelOnBottom true" ~/Library/Preferences/com.apple.finder.plist
+
+# show item info (default: false)
+# desktop
+/usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:showItemInfo false" ~/Library/Preferences/com.apple.finder.plist
+# finder icon view
+/usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:showItemInfo false" ~/Library/Preferences/com.apple.finder.plist
+/usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:showItemInfo false" ~/Library/Preferences/com.apple.finder.plist
+
+# show icon preview (default: true)
+# desktop
+/usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:showIconPreview true" ~/Library/Preferences/com.apple.finder.plist
+# finder icon view
+/usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:showIconPreview true" ~/Library/Preferences/com.apple.finder.plist
+/usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:showIconPreview true" ~/Library/Preferences/com.apple.finder.plist
+
+# background (default: default)
+# default = 0
+# color = 1
+# picture = 2
+/usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:backgroundType 0" ~/Library/Preferences/com.apple.finder.plist
+/usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:backgroundType 0" ~/Library/Preferences/com.apple.finder.plist
 
 ###############################################################################
 # Trackpad, mouse, keyboard, Bluetooth accessories, and input                 #
@@ -465,6 +580,8 @@ defaults write com.apple.Siri 'UserHasDeclinedEnable' -bool true
 # Opt-out from Siri data collection
 defaults write com.apple.assistant.support 'Siri Data Sharing Opt-In Status' -int 2
 
+# Listen for ("hey siri" on headphones) (default: off)
+defaults write com.apple.Siri VoiceTriggerUserEnabled -bool false
 
 ###############################################################################
 # Remote Management Service                                                   #
@@ -477,9 +594,42 @@ sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resourc
 sudo rm -rf /var/db/RemoteManagement
 sudo defaults delete /Library/Preferences/com.apple.RemoteDesktop.plist
 defaults delete ~/Library/Preferences/com.apple.RemoteDesktop.plist
-sudo rm -r /Library/Application\ Support/Apple/Remote\ Desktop/ 
+sudo rm -r /Library/Application\ Support/Apple/Remote\ Desktop/
 rm -r ~/Library/Application\ Support/Remote\ Desktop/
 rm -r ~/Library/Containers/com.apple.RemoteDesktop
+
+###############################################################################
+# Analytics & improvements
+###############################################################################
+
+# Share mac analytics (default: set in setup assistant)
+defaults write "/Library/Application Support/CrashReporter/DiagnosticMessagesHistory.plist" AutoSubmit -bool false
+defaults write "/Library/Application Support/CrashReporter/DiagnosticMessagesHistory.plist" SeedAutoSubmit -bool false
+defaults write "/Library/Application Support/CrashReporter/DiagnosticMessagesHistory.plist" AutoSubmitVersion -integer 4
+
+# Improve siri & dictation (default: set in setup assistant)
+defaults write com.apple.assistant.support "Siri Data Sharing Opt-In Status" -integer 2
+
+# Share with app developers (default: set in setup assistant)
+defaults write "/Library/Application Support/CrashReporter/DiagnosticMessagesHistory.plist" ThirdPartyDataSubmit -bool false
+defaults write "/Library/Application Support/CrashReporter/DiagnosticMessagesHistory.plist" ThirdPartyDataSubmitVersion -integer 4
+
+# Personalized ads
+defaults write com.apple.AdLib allowApplePersonalizedAdvertising -bool false
+
+###############################################################################
+# Security
+###############################################################################
+
+# Allow applications downloaded from (default: app store and identified developers)
+# app store
+# sudo spctl --master-enable
+# sudo spctl --disable
+# app store and identified developers
+sudo spctl --master-enable
+sudo spctl --enable
+# disable gatekeeper completely
+# sudo spctl --master-disable
 
 ###############################################################################
 ###############################################################################
