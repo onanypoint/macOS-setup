@@ -11,6 +11,7 @@
     # http://caiustheory.com/git-git-git-git-git/
     # https://densitylabs.io/blog/5-useful-tricks-you-didn't-know-for-git
     # https://git-scm.com/docs/pretty-formats
+    # https://jvns.ca/blog/2024/02/16/popular-git-config-options/#diff-algorithm-histogram
 
     cherryb = !python ~/.config.git/scripts/mr-from-commits.py
 
@@ -35,6 +36,9 @@
 
 [diff]
     submodule = log
+	algorithm = histogram
+    # uses different colours to highlight lines in diffs that have been “moved”
+	colorMoved = default
 
 [filter "nbstrip_full"]
     clean = "jq --indent 1 'if ((.metadata | has(\"git\") | not) or (.metadata.git | has(\"clear_output\") | not)) or .metadata.git.clear_output then \
@@ -46,12 +50,28 @@
             else . end'"
     smudge = cat
     required = true
+
 [pull]
 	rebase = false
+
 [init]
 	defaultBranch = main
+
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+
+[push]
+    # always push the local branch to a remote branch with the same nam
+	autosetupremote = true
+
+[merge]
+	conflictstyle = zdiff3
+    
+[rerere]
+    #  remembers how merge conflicts were resolved uring a rebase and automatically resolves or you when it can.
+	enabled = true
+[help]
+	autoCorrect = 1

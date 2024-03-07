@@ -137,6 +137,9 @@ defaults write -g NSAutomaticSpellingCorrectionEnabled -bool false
 # Disable Internet based spell correction
 defaults write NSGlobalDomain WebAutomaticSpellingCorrectionEnabled -bool false
 
+# Enable dragging any part of the window by holding ctrl+cmd 
+defaults write -g NSWindowShouldDragOnGesture YES
+
 # ###############################################################################
 # # Screen                                                                      #
 # ###############################################################################
